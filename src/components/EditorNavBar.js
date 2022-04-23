@@ -13,6 +13,7 @@ function EditorNavBar(props) {
         justifyContent: "space-between",
       }}
       color="primary"
+      position="static"
     >
       <div className={classes.btnGroup}>
         <Button size="large" className={`${classes.btn} ${classes.btnActive}`}>

@@ -1,33 +1,39 @@
-import React from "react";
-import { Grid, Paper } from "@mui/material";
+import { Grid } from "@mui/material";
+import EditorInput from "./components/EditorInput";
 import EditorFooter from "./components/EditorFooter";
 import EditorNavBar from "./components/EditorNavBar";
 import EditorPreviewer from "./components/EditorPreviewer";
+import Markdown from "./components/context/MarkdownContext";
 
 function App() {
   return (
-    <Grid
-      container
-      sx={{
-        height: "100vh",
-        display: "grid",
-        gridTemplateRows: "auto 1fr auto",
-      }}
-    >
-      <Grid item gridRow="1">
-        <EditorNavBar />
-      </Grid>
+    <Markdown>
       <Grid
-        item
-        gridRow="2"
-        sx={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
+        container
+        component="section"
+        sx={{
+          height: "100vh",
+          display: "grid",
+          gridTemplateRows: "auto 1fr auto",
+          fontFamily: "Monospace",
+        }}
       >
-        <EditorPreviewer />
+        <Grid item gridRow="1">
+          <EditorNavBar />
+        </Grid>
+        <Grid
+          item
+          gridRow="2"
+          sx={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
+        >
+          <EditorInput />
+          <EditorPreviewer />
+        </Grid>
+        <Grid item gridRow="3">
+          <EditorFooter />
+        </Grid>
       </Grid>
-      <Grid item gridRow="3">
-        <EditorFooter />
-      </Grid>
-    </Grid>
+    </Markdown>
   );
 }
 

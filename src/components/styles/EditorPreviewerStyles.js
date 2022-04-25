@@ -1,6 +1,5 @@
 const styles = {
   previwerSection: {
-    fontFamily: "Monospace",
     display: "flex !important",
     backgroundColor: "#ddd",
     color: "#2b2d42",
@@ -21,6 +20,9 @@ const styles = {
     padding: "0.5em 1em",
     width: "100%",
     fontSize: "1.1rem",
+    "& ::selection": {
+      backgroundColor: "#adb5bd",
+    },
   },
   previwerControlBtn: {
     margin: 2,
@@ -40,6 +42,9 @@ const styles = {
         color: "#495057",
       },
     },
+  },
+  active: {
+    transform: "scale(0.96)",
   },
 };
 

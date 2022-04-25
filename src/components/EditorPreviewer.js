@@ -1,4 +1,4 @@
-import { Paper, Container, Box } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import styles from "./styles/EditorPreviewerStyles";
 
@@ -15,7 +15,7 @@ function EditorPreviewer(props) {
           <button className={classes.previwerControlBtn}>
             <i className="ri-eye-fill"></i>
           </button>
-          <button className={classes.previwerControlBtn}>
+          <button className={`${classes.previwerControlBtn} ${classes.active}`}>
             <i className="ri-side-bar-fill"></i>
           </button>
           <button className={classes.previwerControlBtn}>

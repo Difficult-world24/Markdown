@@ -7,16 +7,7 @@ class EditorNavBar extends React.PureComponent {
   render() {
     const { classes } = this.props;
     return (
-      <AppBar
-        sx={{
-          p: 1,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-        color="primary"
-        position="static"
-      >
+      <AppBar color="primary" position="static" className={classes.container}>
         <div className={classes.btnGroup}>
           <Button
             size="large"

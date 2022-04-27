@@ -1,4 +1,7 @@
 const styles = {
+  container: {
+    height: "100%",
+  },
   previwerSection: {
     display: "flex !important",
     backgroundColor: "#ddd",
@@ -20,9 +23,9 @@ const styles = {
     padding: "0.5em 1em",
     width: "100%",
     fontSize: "1.1rem",
-    "& ::selection": {
-      backgroundColor: "#adb5bd",
-    },
+    //"& ::selection": {
+    //backgroundColor: "#adb5bd",
+    //},
   },
   previwerControlBtn: {
     margin: 2,

@@ -6136,6 +6136,18 @@
   dependencies:
     "tmpl" "1.0.5"
 
+"marked-react@^1.1.0":
+  "integrity" "sha512-UIcR1Ub1p7GJasTDDKEGsR5K4+OMSF+5jbRNDGJ1nLtqEBUzl4CE1r7oX7h1gurj3C/Bw+aoThgzjG8J1lF50g=="
+  "resolved" "https://registry.npmjs.org/marked-react/-/marked-react-1.1.0.tgz"
+  "version" "1.1.0"
+  dependencies:
+    "marked" "^4.0.12"
+
+"marked@^4.0.12":
+  "integrity" "sha512-HL5sSPE/LP6U9qKgngIIPTthuxC0jrfxpYMZ3LdGDD3vTnLs59m2Z7r6+LNDR3ToqEQdkKd6YaaEfJhodJmijQ=="
+  "resolved" "https://registry.npmjs.org/marked/-/marked-4.0.14.tgz"
+  "version" "4.0.14"
+
 "mdn-data@2.0.14":
   "integrity" "sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow=="
   "resolved" "https://registry.npmjs.org/mdn-data/-/mdn-data-2.0.14.tgz"
@@ -7502,7 +7514,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@^17.0.0", "react@^17.0.0 || ^18.0.0", "react@^18.0.0", "react@>= 16", "react@>=0.14.0", "react@>=16.6.0", "react@>=16.8.0":
+"react@^16.8.0 || >=17.0.0", "react@^17.0.0", "react@^17.0.0 || ^18.0.0", "react@^18.0.0", "react@>= 16", "react@>=0.14.0", "react@>=16.6.0", "react@>=16.8.0":
   "integrity" "sha512-x+VL6wbT4JRVPm7EGxXhZ8w8LTROaxPXOqhlGyVSrv0sB1jkyFGgXxJ8LVoPRLvPR6/CIZGFmfzqUa2NYeMr2A=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.0.0.tgz"
   "version" "18.0.0"

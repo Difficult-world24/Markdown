@@ -2,46 +2,37 @@ import React from "react";
 import { Stack, Typography } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import styles from "./styles/EditorFooterStyles";
-
-//const getWordCount = (editorState) => {
-//const plainText = editorState.getCurrentContent().getPlainText("");
-//const regex = /(?:\r\n|\r|\n)/g; // new line, carriage return, line feed
-//const cleanString = plainText.replace(regex, " ").trim(); // replace above characters w/ space
-//const wordArray = cleanString.match(/\S+/g); // matches words according to whitespace
-//return wordArray ? wordArray.length : 0;
-//};
+import { markdownContext } from "./context/MarkdownContext";
 
 class EditorFooter extends React.PureComponent {
+  static contextType = markdownContext;
+
   render() {
     const { classes } = this.props;
+    const { editorInfo } = this.context;
+
     return (
-      <Stack
-        className={classes.footer}
-        sx={{
-          bgcolor: "secondary.dark",
-          width: "100%",
-        }}
-      >
+      <Stack className={classes.footer} sx={{ bgcolor: "secondary.dark" }}>
         <Typography className={classes.label}>Markdown</Typography>
         <ul className={classes.ul}>
           <li className={classes.label}>
             <Typography>
-              <span>0</span>words
+              <span>{editorInfo.wordCount}</span>words
             </Typography>
           </li>
           <li className={classes.label}>
             <Typography>
-              <span>8</span>lines
+              <span>{editorInfo.lines}</span>lines
             </Typography>
           </li>
           <li className={classes.label}>
             <Typography>
-              <span>Ln 15,</span>
+              <span>Ln {editorInfo.lineNumber},</span>
             </Typography>
           </li>
           <li className={classes.label}>
             <Typography>
-              <span>Col 18</span>
+              <span>Col {editorInfo.columnNumber}</span>
             </Typography>
           </li>
         </ul>

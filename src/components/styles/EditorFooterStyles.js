@@ -1,7 +1,7 @@
 const styles = {
   footer: {
     height: "2rem",
-    width: "100%",
+    width: "100% !important",
     color: "#fff",
     flexDirection: "row !important",
     alignItems: "center",

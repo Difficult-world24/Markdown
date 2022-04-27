@@ -1,5 +1,6 @@
 import React from "react";
 import { EditorState } from "draft-js";
+import editorUtility from "../../utils/editorUtility";
 
 export const markdownContext = React.createContext();
 //Draft-Js BoilerPlate;
@@ -10,15 +11,24 @@ class Markdown extends React.Component {
     super(props);
     this.state = { editorState: editorState };
     this.setEditorState = this.setEditorState.bind(this);
+    this.editorPlainText = this.editorPlainText.bind(this);
   }
   setEditorState(newEditorState) {
     this.setState({ editorState: newEditorState });
   }
+  editorPlainText() {
+    const currentContent = this.state.editorState.getCurrentContent();
+    return currentContent.getPlainText();
+  }
+
   render() {
     const { editorState } = this.state;
-    const { setEditorState } = this;
+    const { setEditorState, editorPlainText } = this;
+    let editorInfo = editorUtility(editorState);
     return (
-      <markdownContext.Provider value={{ editorState, setEditorState }}>
+      <markdownContext.Provider
+        value={{ editorState, setEditorState, editorInfo, editorPlainText }}
+      >
         {this.props.children}
       </markdownContext.Provider>
     );

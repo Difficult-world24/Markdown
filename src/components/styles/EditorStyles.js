@@ -1,11 +1,17 @@
 const styles = {
-  editorSection: {
-    fontFamily: "inherit",
-    fontWeight: 500,
-    color: "#161a1d",
-    fontSize: "1.1rem",
-    padding: "0.5em 1em",
-    transition: "all 0.4s ease",
+  container: {
+    height: "100vh",
+    display: "grid !important",
+    gridTemplateRows: "auto 1fr auto",
+    fontFamily: "Monospace",
+  },
+  containerSection: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    "& ::selection": {
+      backgroundColor: "#495057",
+      color: "#f8f9fa",
+    },
   },
 };
 

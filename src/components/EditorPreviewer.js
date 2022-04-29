@@ -9,6 +9,7 @@ class EditorPreviewer extends React.Component {
   static contextType = markdownContext;
   render() {
     const { classes } = this.props;
+
     let editorText = this.context.editorPlainText();
     return (
       <Container
@@ -18,20 +19,27 @@ class EditorPreviewer extends React.Component {
       >
         <Box className={classes.container}>
           <Box className={classes.previwerControls}>
-            <button className={classes.previwerControlBtn}>
-              <i className="ri-eye-fill"></i>
-            </button>
-            <button
-              className={`${classes.previwerControlBtn} ${classes.active}`}
-            >
-              <i className="ri-side-bar-fill"></i>
-            </button>
-            <button className={classes.previwerControlBtn}>
-              <i className="ri-eye-close-fill"></i>
-            </button>
+            <Box>
+              <button className={classes.previwerControlBtn}>
+                <i className="ri-eye-fill"></i>
+              </button>
+              <button
+                className={`${classes.previwerControlBtn} ${classes.active}`}
+              >
+                <i className="ri-side-bar-fill"></i>
+              </button>
+              <button className={classes.previwerControlBtn}>
+                <i className="ri-eye-close-fill"></i>
+              </button>
+            </Box>
+            <Box>
+              <button className={classes.previwerControlBtn}>
+                <i className={`ri-side-bar-fill`}></i>
+              </button>
+            </Box>
           </Box>
         </Box>
-        <Box className={classes.outputSection}>
+        <Box className={classes.outputSection} component="article">
           <Markdown value={editorText} />
         </Box>
       </Container>

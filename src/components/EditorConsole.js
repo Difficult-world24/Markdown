@@ -1,7 +1,7 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
 import { withStyles } from "@mui/styles";
-import styles from "./styles/EditorFooterStyles";
+import styles from "./styles/EditorConsoleStyles";
 import { markdownContext } from "./context/MarkdownContext";
 
 class EditorConsole extends React.PureComponent {

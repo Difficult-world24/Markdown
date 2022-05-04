@@ -31,7 +31,7 @@ const getTotalLine = (editorState) => {
   return BlockMapArray.length;
 };
 
-function editorUtility(edState) {
+export default function editorUtility(edState) {
   let wordCount = getWordCount(edState);
   let columnNumber = getColNum(edState);
   let lineNumber = getLineNum(edState);
@@ -39,4 +39,12 @@ function editorUtility(edState) {
   return { wordCount, columnNumber, lineNumber, lines };
 }
 
-export default editorUtility;
+function getBlockSelection(edState) {
+  const selectionState = edState.getSelection();
+  const anchorKey = selectionState.getAnchorKey();
+  const focusKey = selectionState.getFocusKey();
+  const anchorOffset = selectionState.getStartOffset();
+  const focusOffSet = selectionState.getEndOffset();
+  return { anchorKey, focusKey, anchorOffset, focusOffSet, selectionState };
+}
+export { getBlockSelection };

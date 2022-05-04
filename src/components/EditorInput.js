@@ -3,7 +3,9 @@ import { Box } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import styles from "./styles/EditorInputStyles";
 import { markdownContext } from "./context/MarkdownContext";
-import { Editor, RichUtils } from "draft-js";
+import { TextHeadingOne } from "../utils/editorFunctions";
+import { Editor, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
+const { hasCommandModifier } = KeyBindingUtil;
 
 class EditorInput extends React.PureComponent {
   static contextType = markdownContext;
@@ -11,18 +13,28 @@ class EditorInput extends React.PureComponent {
     super(props);
     this.ref = React.createRef();
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
+    this.handleKeyBinding = this.handleKeyBinding.bind(this);
   }
 
   componentDidMount() {
     this.ref.current.focus();
   }
 
-  handleKeyCommand(command, editorState) {
-    const newEditorState = RichUtils.handleKeyCommand(editorState, command);
-    if (newEditorState) {
-      this.context.setEditorState(newEditorState);
-      return "handled";
+  handleKeyBinding(e) {
+    if (e.keyCode === 72 && hasCommandModifier(e)) {
+      return "heading-one";
     }
+    return getDefaultKeyBinding(e);
+  }
+
+  handleKeyCommand(command, edState) {
+    const { setEditorState, editorState } = this.context;
+
+    if (command === "heading-one") {
+      const makeHeadingOne = TextHeadingOne(editorState);
+      setEditorState(makeHeadingOne);
+    }
+
     return "not-handled";
   }
 
@@ -40,6 +52,7 @@ class EditorInput extends React.PureComponent {
           editorState={editorState}
           handleKeyCommand={this.handleKeyCommand}
           onChange={setEditorState}
+          keyBindingFn={this.handleKeyBinding}
         />
       </Box>
     );

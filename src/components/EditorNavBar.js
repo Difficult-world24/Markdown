@@ -1,6 +1,6 @@
 import React from "react";
 import { markdownContext } from "./context/MarkdownContext";
-import { TextHeadingOne } from "../utils/editorFunctions";
+import { TextHeadingOne, TextItalic } from "../utils/editorFunctions";
 import { AppBar, Button, Typography } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import styles from "./styles/EditorNavBarStyles";
@@ -10,10 +10,16 @@ class EditorNavBar extends React.PureComponent {
   constructor(props) {
     super(props);
     this.makeHeading = this.makeHeading.bind(this);
+    this.makeItalic = this.makeItalic.bind(this);
   }
 
   makeHeading() {
     let newEditorState = TextHeadingOne(this.context.editorState);
+    this.context.setEditorState(newEditorState);
+  }
+
+  makeItalic() {
+    let newEditorState = TextItalic(this.context.editorState);
     this.context.setEditorState(newEditorState);
   }
 
@@ -22,13 +28,14 @@ class EditorNavBar extends React.PureComponent {
     return (
       <AppBar color="primary" position="static" className={classes.container}>
         <div className={classes.btnGroup}>
-          <Button
-            size="large"
-            className={`${classes.btn} ${classes.btnActive}`}
-          >
+          <Button size="large" className={classes.btn}>
             <i className="ri-bold"></i>
           </Button>
-          <Button size="large" className={classes.btn}>
+          <Button
+            size="large"
+            className={classes.btn}
+            onClick={this.makeItalic}
+          >
             <i className="ri-italic"></i>
           </Button>
           <Button

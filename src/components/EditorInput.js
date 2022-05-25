@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import styles from "./styles/EditorInputStyles";
 import { markdownContext } from "./context/MarkdownContext";
-import { TextHeadingOne } from "../utils/editorFunctions";
+import { TextHeadingOne, TextItalic } from "../utils/editorFunctions";
 import { Editor, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
 const { hasCommandModifier } = KeyBindingUtil;
 
@@ -23,6 +23,8 @@ class EditorInput extends React.PureComponent {
   handleKeyBinding(e) {
     if (e.keyCode === 72 && hasCommandModifier(e)) {
       return "heading-one";
+    } else if (e.keyCode === 73 && hasCommandModifier(e)) {
+      return "italic";
     }
     return getDefaultKeyBinding(e);
   }
@@ -33,6 +35,9 @@ class EditorInput extends React.PureComponent {
     if (command === "heading-one") {
       const makeHeadingOne = TextHeadingOne(editorState);
       setEditorState(makeHeadingOne);
+    } else if (command === "italic") {
+      const makeItalic = TextItalic(editorState);
+      setEditorState(makeItalic);
     }
 
     return "not-handled";

@@ -1,44 +1,37 @@
 import { EditorState, Modifier } from "draft-js";
 import { getBlockSelection } from "./editorUtility";
 
-function TextHeadingOne(edState) {
-  const { anchorKey, focusKey, selectionState } = getBlockSelection(edState);
+function ContentModifier(edState, modifier, modifierType) {
+  const { selectionState } = getBlockSelection(edState);
   const currentContent = edState.getCurrentContent();
-  const currentContentBlock = currentContent.getBlockForKey(anchorKey);
-  const headingText = `# Some Text Here`;
 
-  if (currentContentBlock.getLength() === 0) {
-    /*
-    NOTE:If ContentBlock has text?
-    then the EditorState passed as an argument will be returned.
-    Otherwise headingText variable will be inserted into ContentBlock;
-    */
-    const newSelectionState = selectionState.merge({
-      anchorKey,
-      focusKey,
-      anchorOffset: 2,
-      focusOffset: headingText.length,
-      hasFocus: true,
-    });
-
-    const newContentState = Modifier.insertText(
-      currentContent,
-      selectionState,
-      headingText
-    );
-    const editorStateWithHeading = EditorState.push(
-      edState,
-      newContentState,
-      "heading-one-added"
-    );
-
-    const newEditorState = EditorState.forceSelection(
-      editorStateWithHeading,
-      newSelectionState
-    );
-    return newEditorState;
-  }
-  return edState;
+  let newContentState = Modifier.insertText(
+    currentContent,
+    selectionState,
+    modifier
+  );
+  let updatedEdState = EditorState.push(edState, newContentState, modifierType);
+  return updatedEdState;
 }
 
-export { TextHeadingOne };
+function TextHeadingOne(edState) {
+  const updatedEditorState = ContentModifier(edState, "# ", "heading-one");
+  return updatedEditorState;
+}
+
+function TextItalic(edState) {
+  const updatedEditorState = ContentModifier(edState, "** ", "italic");
+
+  const { selectionState, anchorKey, anchorOffSet } =
+    getBlockSelection(edState);
+
+  const updatedSelection = selectionState.merge({
+    anchorKey,
+    anchorOffset: anchorOffSet + 1,
+    focusOffset: anchorOffSet + 1,
+  });
+
+  return EditorState.forceSelection(updatedEditorState, updatedSelection);
+}
+
+export { TextHeadingOne, TextItalic };

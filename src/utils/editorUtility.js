@@ -41,10 +41,21 @@ export default function editorUtility(edState) {
 
 function getBlockSelection(edState) {
   const selectionState = edState.getSelection();
+  const contentState = edState.getCurrentContent();
   const anchorKey = selectionState.getAnchorKey();
   const focusKey = selectionState.getFocusKey();
-  const anchorOffset = selectionState.getStartOffset();
+  const anchorOffSet = selectionState.getStartOffset();
   const focusOffSet = selectionState.getEndOffset();
-  return { anchorKey, focusKey, anchorOffset, focusOffSet, selectionState };
+  const contentText = contentState
+    .getPlainText()
+    .substring(anchorOffSet, focusOffSet);
+  return {
+    anchorKey,
+    focusKey,
+    anchorOffSet,
+    focusOffSet,
+    contentText,
+    selectionState,
+  };
 }
 export { getBlockSelection };

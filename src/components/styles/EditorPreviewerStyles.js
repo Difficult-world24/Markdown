@@ -3,6 +3,7 @@ const styles = {
     height: "100%",
   },
   previwerSection: {
+    //padding: "0.5em 1em",
     display: "flex !important",
     backgroundColor: "#ddd",
     color: "#2b2d42",
@@ -26,6 +27,13 @@ const styles = {
     //"& ::selection": {
     //backgroundColor: "#adb5bd",
     //},
+    "& h1": {
+      fontSize: "1.4em",
+      marginTop: 0,
+    },
+    "& h2": {
+      fontSize: "1.1em",
+    },
   },
   previwerControlBtn: {
     margin: 2,

@@ -34,4 +34,15 @@ function TextItalic(edState) {
   return EditorState.forceSelection(updatedEditorState, updatedSelection);
 }
 
-export { TextHeadingOne, TextItalic };
+function TextLink(edState, linkText, linkUrl) {
+  const markdownLink = `[${linkText}](https://${linkUrl})`;
+
+  const updatedEditorState = ContentModifier(
+    edState,
+    markdownLink,
+    "link-added"
+  );
+  return updatedEditorState;
+}
+
+export { TextHeadingOne, TextItalic, TextLink };

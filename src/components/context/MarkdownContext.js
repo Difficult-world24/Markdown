@@ -1,5 +1,5 @@
 import React from "react";
-import { EditorState } from "draft-js";
+import { EditorState, CompositeDecorator } from "draft-js";
 import editorUtility from "../../utils/editorUtility";
 
 export const markdownContext = React.createContext();
@@ -9,7 +9,7 @@ const editorState = EditorState.createEmpty();
 class Markdown extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { editorState: editorState };
+    this.state = { editorState };
     this.setEditorState = this.setEditorState.bind(this);
     this.editorPlainText = this.editorPlainText.bind(this);
   }

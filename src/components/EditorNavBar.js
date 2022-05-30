@@ -1,7 +1,17 @@
 import React from "react";
 import { markdownContext } from "./context/MarkdownContext";
-import { TextHeadingOne, TextItalic } from "../utils/editorFunctions";
-import { AppBar, Button, Typography } from "@mui/material";
+import { TextHeadingOne, TextItalic, TextLink } from "../utils/editorFunctions";
+import EditorButton from "./EditorButton";
+import {
+  AppBar,
+  Button,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+} from "@mui/material";
 import { withStyles } from "@mui/styles";
 import styles from "./styles/EditorNavBarStyles";
 
@@ -9,8 +19,25 @@ class EditorNavBar extends React.PureComponent {
   static contextType = markdownContext;
   constructor(props) {
     super(props);
+    this.state = { linkDialog: false, linkText: "", linkUrl: "" };
     this.makeHeading = this.makeHeading.bind(this);
     this.makeItalic = this.makeItalic.bind(this);
+    this.toggleLinkDialog = this.toggleLinkDialog.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.insertLink = this.insertLink.bind(this);
+  }
+
+  toggleLinkDialog() {
+    this.setState(function (st) {
+      return { linkDialog: !st.linkDialog };
+    });
+  }
+
+  insertLink() {
+    const { linkText, linkUrl } = this.state;
+    let newEditorState = TextLink(this.context.editorState, linkText, linkUrl);
+    this.context.setEditorState(newEditorState);
+    this.setState({ linkDialog: false, linkText: "", linkUrl: "" });
   }
 
   makeHeading() {
@@ -22,39 +49,36 @@ class EditorNavBar extends React.PureComponent {
     let newEditorState = TextItalic(this.context.editorState);
     this.context.setEditorState(newEditorState);
   }
-
+  handleChange(evt) {
+    const { name, value } = evt.target;
+    this.setState({ [name]: value });
+  }
   render() {
+    const { handleChange, toggleLinkDialog, insertLink } = this;
     const { classes } = this.props;
+    const { linkDialog, linkUrl, linkText } = this.state;
     return (
       <AppBar color="primary" position="static" className={classes.container}>
         <div className={classes.btnGroup}>
-          <Button size="large" className={classes.btn}>
+          <EditorButton toolTitle="Bold (Ctrl+b)">
             <i className="ri-bold"></i>
-          </Button>
-          <Button
-            size="large"
-            className={classes.btn}
-            onClick={this.makeItalic}
-          >
+          </EditorButton>
+          <EditorButton toolTitle="Italic (Ctrl+i)" onclick={this.makeItalic}>
             <i className="ri-italic"></i>
-          </Button>
-          <Button
-            size="large"
-            className={classes.btn}
-            onClick={this.makeHeading}
-          >
+          </EditorButton>
+          <EditorButton toolTitle="Heading (Ctrl+h)" onclick={this.makeHeading}>
             <i className="ri-heading"></i>
-          </Button>
+          </EditorButton>
 
-          <Button size="large" className={classes.btn}>
+          <EditorButton toolTitle="Code Block">
             <i className="ri-code-view"></i>
-          </Button>
-          <Button size="large" className={classes.btn}>
+          </EditorButton>
+          <EditorButton toolTitle="Unordered List Item">
             <i className="ri-list-unordered"></i>
-          </Button>
-          <Button size="large" className={classes.btn}>
+          </EditorButton>
+          <EditorButton toolTitle="Create a link" onclick={toggleLinkDialog}>
             <i className="ri-link"></i>
-          </Button>
+          </EditorButton>
         </div>
         <Typography
           variant="h6"
@@ -62,6 +86,35 @@ class EditorNavBar extends React.PureComponent {
         >
           Markdown Editor
         </Typography>
+        <Dialog open={linkDialog} onClose={toggleLinkDialog}>
+          <DialogTitle>Create a link</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              fullWidth
+              variant="standard"
+              label="Link Text"
+              name="linkText"
+              margin="dense"
+              value={linkText}
+              onChange={handleChange}
+            />
+            <TextField
+              variant="standard"
+              fullWidth
+              name="linkUrl"
+              label="URL"
+              margin="dense"
+              helperText="Write URL without 'https://'."
+              value={linkUrl}
+              onChange={handleChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={toggleLinkDialog}>Close</Button>
+            <Button onClick={insertLink}>Done</Button>
+          </DialogActions>
+        </Dialog>
       </AppBar>
     );
   }

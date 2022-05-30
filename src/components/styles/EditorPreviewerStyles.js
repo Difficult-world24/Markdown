@@ -6,6 +6,7 @@ const styles = {
     //padding: "0.5em 1em",
     display: "flex !important",
     backgroundColor: "#ddd",
+    overflow: "visible",
     color: "#2b2d42",
     gridColumn: "2",
     transition: "all 0.2s ease",
@@ -16,9 +17,10 @@ const styles = {
     height: "100%",
     width: "2rem",
     display: "flex",
+    overflow: "hidden",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "start",
+    justifyContent: "space-between",
   },
   outputSection: {
     padding: "0.5em 1em",
@@ -36,16 +38,17 @@ const styles = {
     },
   },
   previwerControlBtn: {
-    margin: 2,
+    marginBottom: 0,
     padding: 6,
     outline: "none",
     border: "none",
     backgroundColor: "inherit",
     fontSize: 20,
     transition: "all 0.2s ease",
+    overflow: "hidden",
     cursor: "pointer",
     "& i": {
-      color: "#6c757d",
+      color: "#495057",
     },
     "&:hover": {
       backgroundColor: "#ced4da",
@@ -54,8 +57,8 @@ const styles = {
       },
     },
   },
-  active: {
-    transform: "scale(0.96)",
+  faceDown: {
+    transform: "rotate(-90deg)",
   },
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import styles from "./styles/EditorInputStyles";
 import { markdownContext } from "./context/MarkdownContext";

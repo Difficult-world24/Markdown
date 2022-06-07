@@ -1,10 +1,17 @@
 import React from "react";
 import { markdownContext } from "./context/MarkdownContext";
-import { TextHeadingOne, TextItalic, TextLink } from "../utils/editorFunctions";
+import {
+  TextHeadingOne,
+  TextItalic,
+  TextLink,
+  TextEmoji,
+} from "../utils/editorFunctions";
 import EditorButton from "./EditorButton";
+import EmojiPicker from "./EmojiPicker";
 import {
   AppBar,
   Button,
+  Box,
   Typography,
   Dialog,
   DialogTitle,
@@ -19,17 +26,36 @@ class EditorNavBar extends React.PureComponent {
   static contextType = markdownContext;
   constructor(props) {
     super(props);
-    this.state = { linkDialog: false, linkText: "", linkUrl: "" };
+    this.state = {
+      linkDialog: false,
+      emojiDialog: false,
+      linkText: "",
+      linkUrl: "",
+    };
     this.makeHeading = this.makeHeading.bind(this);
     this.makeItalic = this.makeItalic.bind(this);
+    this.addEmoji = this.addEmoji.bind(this);
     this.toggleLinkDialog = this.toggleLinkDialog.bind(this);
+    this.toggleEmojiDialog = this.toggleEmojiDialog.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.insertLink = this.insertLink.bind(this);
+  }
+
+  addEmoji(emojiObject) {
+    let newEditorState = TextEmoji(this.context.editorState, emojiObject);
+    this.context.setEditorState(newEditorState);
+    this.setState({ emojiDialog: false });
   }
 
   toggleLinkDialog() {
     this.setState(function (st) {
       return { linkDialog: !st.linkDialog };
+    });
+  }
+
+  toggleEmojiDialog() {
+    this.setState(function (st) {
+      return { emojiDialog: !st.emojiDialog };
     });
   }
 
@@ -54,12 +80,13 @@ class EditorNavBar extends React.PureComponent {
     this.setState({ [name]: value });
   }
   render() {
-    const { handleChange, toggleLinkDialog, insertLink } = this;
+    const { handleChange, toggleLinkDialog, toggleEmojiDialog, insertLink } =
+      this;
     const { classes } = this.props;
-    const { linkDialog, linkUrl, linkText } = this.state;
+    const { linkDialog, linkUrl, linkText, emojiDialog } = this.state;
     return (
       <AppBar color="primary" position="static" className={classes.container}>
-        <div className={classes.btnGroup}>
+        <Box className={classes.btnGroup}>
           <EditorButton toolTitle="Bold (Ctrl+b)">
             <i className="ri-bold"></i>
           </EditorButton>
@@ -79,7 +106,13 @@ class EditorNavBar extends React.PureComponent {
           <EditorButton toolTitle="Create a link" onclick={toggleLinkDialog}>
             <i className="ri-link"></i>
           </EditorButton>
-        </div>
+          <Box className={classes.emojiContainer}>
+            <EditorButton toolTitle="Pick a Emoji" onclick={toggleEmojiDialog}>
+              <i className="ri-emotion-laugh-line"></i>
+            </EditorButton>
+            {emojiDialog && <EmojiPicker addEmoji={this.addEmoji} />}
+          </Box>
+        </Box>
         <Typography
           variant="h6"
           sx={{ fontFamily: "Monospace", fontWeight: "bold", mr: 1 }}

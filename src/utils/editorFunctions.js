@@ -45,4 +45,15 @@ function TextLink(edState, linkText, linkUrl) {
   return updatedEditorState;
 }
 
-export { TextHeadingOne, TextItalic, TextLink };
+function TextEmoji(edState, emojiObject) {
+  const { emoji } = emojiObject;
+  const updatedEditorState = ContentModifier(
+    edState,
+    `${emoji}`,
+    `emoji-added`
+  );
+
+  return updatedEditorState;
+}
+
+export { TextHeadingOne, TextItalic, TextLink, TextEmoji };

@@ -5,6 +5,10 @@ const styles = {
     alignItems: "center",
     justifyContent: "space-between",
   },
+  emojiContainer: {
+    display: "inline-block",
+    position: "relative",
+  },
 };
 
 export default styles;

@@ -1,10 +1,11 @@
 import React from "react";
-import { Box, Tooltip } from "@mui/material";
+import { Box } from "@mui/material";
 import { withStyles } from "@mui/styles";
 import styles from "./styles/EditorInputStyles";
 import { markdownContext } from "./context/MarkdownContext";
 import { TextHeadingOne, TextItalic } from "../utils/editorFunctions";
 import { Editor, getDefaultKeyBinding, KeyBindingUtil } from "draft-js";
+//import "draft-js/dist/Draft.css";
 const { hasCommandModifier } = KeyBindingUtil;
 
 class EditorInput extends React.PureComponent {
